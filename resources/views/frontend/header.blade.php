@@ -27,6 +27,13 @@
           <!--    >-->
           <!--  </div>-->
           <!--</div>-->
+          <a href="{{route('consultation.book')}}">
+            <button
+              class="hidden lg:block text-base text-white border border-white w-36 h-12 rounded-md font-bold"
+            >
+              Book Consultation
+            </button>
+          </a>
           <a href="{{route('contact.us')}}">
             <button
               class="hidden lg:block text-base text-white border border-white w-36 h-12 rounded-md font-bold"

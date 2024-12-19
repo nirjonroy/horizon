@@ -185,4 +185,8 @@ class homeController extends Controller
         return view('frontend.blog_details', compact('blog'));
     }
 
+    public function consultation_book(){
+        return view('frontend.book_consultancy');
+    }
+
 }

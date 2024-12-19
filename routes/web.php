@@ -49,6 +49,7 @@ Route::get('support-career-preparation', [homeController::class, 'career_prepara
 Route::get('contact-us', [homeController::class, 'contact_us'])->name('contact.us');
 Route::get('clear-cache', [homeController::class, 'clear_cache'])->name('clear.cache');
 Route::get('blog-details/{id}', [homeController::class, 'blog_details'])->name('blog.details');
+Route::get('consultation-book', [homeController::class, 'consultation_book'])->name('consultation.book');
 
 
 Route::get('/dashboard', function () {
