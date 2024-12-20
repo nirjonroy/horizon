@@ -51,6 +51,11 @@ Route::get('clear-cache', [homeController::class, 'clear_cache'])->name('clear.c
 Route::get('blog-details/{id}', [homeController::class, 'blog_details'])->name('blog.details');
 Route::get('consultation-book', [homeController::class, 'consultation_book'])->name('consultation.book');
 
+Route::get('/book-consultation', [homeController::class, 'showStep1'])->name('consultation.step1');
+Route::post('/book-consultation/personal-info', [homeController::class, 'showStep2'])->name('consultation.step2');
+Route::post('/book-consultation/submit', [homeController::class, 'submitBooking'])->name('consultation.submit');
+Route::get('/confirmation', [homeController::class, 'confirmation'])->name('consultation.confirmation');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

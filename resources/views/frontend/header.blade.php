@@ -27,7 +27,7 @@
           <!--    >-->
           <!--  </div>-->
           <!--</div>-->
-          <a href="{{route('consultation.book')}}">
+          <a href="{{route('consultation.step1')}}">
             <button
               class="hidden lg:block text-base text-white border border-white w-36 h-12 rounded-md font-bold"
             >

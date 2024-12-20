@@ -12,8 +12,10 @@ use App\Models\siteInformation;
 use App\Models\feesCategory;
 use App\Models\contactForm;
 use App\Models\onlineFee;
+use App\Models\Booking;
 use App\Models\internationalStudentLife;
 use RealRashid\SweetAlert\Facades\Alert;
+use Carbon\Carbon;
 
 class homeController extends Controller
 {
@@ -188,5 +190,75 @@ class homeController extends Controller
     public function consultation_book(){
         return view('frontend.book_consultancy');
     }
+
+
+    public function showStep1()
+    {
+        $timeSlots = $this->generateTimeSlots();
+        return view('frontend.book_consultancy', compact('timeSlots'));
+    }
+
+    private function generateTimeSlots()
+    {
+        $startTime = Carbon::now(); // Current time
+        $endTime = Carbon::now()->addHours(8); // Limit to the next 8 hours
+        $interval = 30; // Interval in minutes
+        $timeSlots = [];
+
+        while ($startTime->lte($endTime)) {
+            $timeSlots[] = $startTime->format('h:i A');
+            $startTime->addMinutes($interval);
+        }
+
+        return $timeSlots;
+    }
+
+    public function showStep2(Request $request)
+{
+    if (!$request->session()->has('booking')) {
+        return redirect()->route('consultation.step1')->with('error', 'Please complete step 1 first.');
+    }
+
+    $validated = $request->validate([
+        'date' => 'required|date|after_or_equal:today',
+        'time' => 'required',
+    ]);
+
+    session(['booking' => $validated]);
+    return view('frontend.book_consultancy_step2');
+}
+
+
+public function submitBooking(Request $request)
+{
+    $validated = $request->validate([
+        'first_name' => 'required|string|max:255',
+        'last_name' => 'required|string|max:255',
+        'phone' => 'required|string|max:15',
+        'email' => 'required|email|max:255',
+        'additional_info' => 'nullable|string|max:1000',
+        'confirm' => 'required|boolean',
+    ]);
+
+    $booking = array_merge(session('booking'), $validated);
+    session()->forget('booking');
+
+    // Save to database (example)
+    Booking::create($booking);
+
+    return redirect()->route('consultation.confirmation')->with('booking', $booking);
+}
+
+
+    public function confirmation()
+    {
+        $booking = session('booking');
+        if (!$booking) {
+            return redirect()->route('consultation.step1')->with('error', 'No booking found.');
+        }
+        dd($booking);
+        return view('frontend.consultation_confirmation', compact('booking'));
+    }
+
 
 }
