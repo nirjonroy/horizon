@@ -191,74 +191,86 @@ class homeController extends Controller
         return view('frontend.book_consultancy');
     }
 
-
     public function showStep1()
     {
         $timeSlots = $this->generateTimeSlots();
         return view('frontend.book_consultancy', compact('timeSlots'));
     }
-
+    
     private function generateTimeSlots()
     {
         $startTime = Carbon::now(); // Current time
         $endTime = Carbon::now()->addHours(8); // Limit to the next 8 hours
         $interval = 30; // Interval in minutes
         $timeSlots = [];
-
+    
         while ($startTime->lte($endTime)) {
             $timeSlots[] = $startTime->format('h:i A');
             $startTime->addMinutes($interval);
         }
-
+    
         return $timeSlots;
     }
-
+    
     public function showStep2(Request $request)
-{
-    if (!$request->session()->has('booking')) {
-        return redirect()->route('consultation.step1')->with('error', 'Please complete step 1 first.');
-    }
-
-    $validated = $request->validate([
-        'date' => 'required|date|after_or_equal:today',
-        'time' => 'required',
-    ]);
-
-    session(['booking' => $validated]);
-    return view('frontend.book_consultancy_step2');
-}
-
-
-public function submitBooking(Request $request)
-{
-    $validated = $request->validate([
-        'first_name' => 'required|string|max:255',
-        'last_name' => 'required|string|max:255',
-        'phone' => 'required|string|max:15',
-        'email' => 'required|email|max:255',
-        'additional_info' => 'nullable|string|max:1000',
-        'confirm' => 'required|boolean',
-    ]);
-
-    $booking = array_merge(session('booking'), $validated);
-    session()->forget('booking');
-
-    // Save to database (example)
-    Booking::create($booking);
-
-    return redirect()->route('consultation.confirmation')->with('booking', $booking);
-}
-
-
-    public function confirmation()
     {
-        $booking = session('booking');
-        if (!$booking) {
-            return redirect()->route('consultation.step1')->with('error', 'No booking found.');
-        }
-        dd($booking);
-        return view('frontend.consultation_confirmation', compact('booking'));
+        // Validate the query parameters
+        $validated = $request->validate([
+            'date' => 'required|date|after_or_equal:today',
+            'time' => 'required',
+        ]);
+    
+        // Render the second step with the passed data
+        return view('frontend.book_consultancy_step2', [
+            'date' => $request->query('date'),
+            'time' => $request->query('time'),
+        ]);
+    }
+    
+
+    
+    public function submitBooking(Request $request)
+    {
+        // dd($request->all());
+        // Validate all required fields
+        $validatedData = $request->validate([
+            'date' => 'required|date|after_or_equal:today',
+            'time' => 'required',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'phone' => 'required|string|max:15',
+            'email' => 'required|email|max:255',
+            'additional_info' => 'nullable|string|max:1000',
+            
+        ]);
+        // dd($validatedData);
+        // Create a new instance of the Booking model and fill it with validated data
+        $booking = new Booking();
+        $booking->fill($validatedData);
+    
+        // Save the booking instance to the database
+        $booking->save();
+    
+        // Redirect back with a success message
+        return redirect()->route('consultation.confirmation')->with('success', 'Booking confirmed successfully!');
+    }
+    
+
+    
+    public function confirmation()
+{
+    // Retrieve the latest booking from the database
+    $booking = Booking::latest()->first();
+
+    if (!$booking) {
+        // Redirect to Step 1 if no booking data is found
+        return redirect()->route('consultation.step1')->with('error', 'No booking found.');
     }
 
+    // Display confirmation page with booking details
+    return view('frontend.consultation_confirmation', compact('booking'));
+}
+
+    
 
 }

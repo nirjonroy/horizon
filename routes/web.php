@@ -52,9 +52,10 @@ Route::get('blog-details/{id}', [homeController::class, 'blog_details'])->name('
 Route::get('consultation-book', [homeController::class, 'consultation_book'])->name('consultation.book');
 
 Route::get('/book-consultation', [homeController::class, 'showStep1'])->name('consultation.step1');
-Route::post('/book-consultation/personal-info', [homeController::class, 'showStep2'])->name('consultation.step2');
-Route::post('/book-consultation/submit', [homeController::class, 'submitBooking'])->name('consultation.submit');
+Route::get('book-consultation/personal-info', [HomeController::class, 'showStep2'])->name('consultation.step2');
+Route::post('/book-consultation/personal-infos', [HomeController::class, 'submitBooking'])->name('consultation.personal-info');
 Route::get('/confirmation', [homeController::class, 'confirmation'])->name('consultation.confirmation');
+
 
 
 Route::get('/dashboard', function () {

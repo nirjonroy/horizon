@@ -57,64 +57,61 @@
           <!-- Right Side -->
           <div>
               <h2 class="text-xl font-semibold mb-4 underline">Select Date & Time</h2>
-              <form method="POST" action="{{ route('consultation.step2') }}">
-                  @csrf
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <!-- Calendar Section -->
-                      <div>
-                          <label for="date" class="block text-sm font-medium text-gray-700">Pick a Date</label>
-                          <input
-                              type="date"
-                              id="date"
-                              name="date"
-                              class="mt-2 w-full border rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500"
-                              min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
-                              required
-                          />
-                      </div>
-                      <!-- Time Schedule Section -->
-                      <div>
-                          <p class="text-sm font-medium text-gray-700 mb-2">Available Times</p>
-                          <div class="space-y-2">
-                              @foreach($timeSlots as $time)
-                              <button
-                              type="button"
-                              onclick="selectTime('{{ $time }}')"
-                              data-time="{{ $time }}"
-                              class="time-button w-full bg-blue-900 text-white py-2 rounded-lg hover:bg-blue-600"
-                          >
-                              {{ $time }}
-                          </button>
-                          
-                              @endforeach
-                              <input type="text" id="selectedTime" name="time" required />
-                          </div>
-                      </div>
-                  </div>
-                  <!-- Time Zone Selection -->
-                  <div class="mt-4">
-                      <label for="timezone" class="block text-sm font-medium text-gray-700">Select Time Zone</label>
-                      <select
-                          id="timezone"
-                          name="timezone"
-                          class="mt-2 w-full border rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500"
-                          required
-                      >
-                          <option value="utc-5">UTC-5: Eastern Time (US & Canada)</option>
-                          <option value="utc-6">UTC-6: Central Time (US & Canada)</option>
-                          <option value="utc-7">UTC-7: Mountain Time (US & Canada)</option>
-                          <option value="utc-8">UTC-8: Pacific Time (US & Canada)</option>
-                      </select>
-                  </div>
-                  <div class="flex justify-end">
-                      <button
-                          type="submit"
-                          class="lg:text-base text-sm bg-[#FF0000] text-white mt-4 px-3 py-2 rounded-md font-bold"
-                      >
-                          Continue
-                      </button>
-                  </div>
-              </form>
+              <form method="GET" action="{{ route('consultation.step2') }}">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="date" class="block text-sm font-medium text-gray-700">Pick a Date</label>
+                        <input
+                            type="date"
+                            id="date"
+                            name="date"
+                            class="mt-2 w-full border rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500"
+                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-gray-700 mb-2">Available Times</p>
+                        <div class="space-y-2">
+                            @foreach($timeSlots as $time)
+                            <button
+                                type="button"
+                                onclick="selectTime('{{ $time }}')"
+                                data-time="{{ $time }}"
+                                class="time-button w-full bg-blue-900 text-white py-2 rounded-lg hover:bg-blue-600"
+                            >
+                                {{ $time }}
+                            </button>
+                            @endforeach
+                            <input type="hidden" id="selectedTime" name="time" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <label for="timezone" class="block text-sm font-medium text-gray-700">Select Time Zone</label>
+                    <select
+                        id="timezone"
+                        name="timezone"
+                        class="mt-2 w-full border rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500"
+                        required
+                    >
+                        <option value="utc-5">UTC-5: Eastern Time (US & Canada)</option>
+                        <option value="utc-6">UTC-6: Central Time (US & Canada)</option>
+                        <option value="utc-7">UTC-7: Mountain Time (US & Canada)</option>
+                        <option value="utc-8">UTC-8: Pacific Time (US & Canada)</option>
+                    </select>
+                </div>
+                <div class="flex justify-end">
+                    <button
+                        type="submit"
+                        class="lg:text-base text-sm bg-[#FF0000] text-white mt-4 px-3 py-2 rounded-md font-bold"
+                    >
+                        Continue
+                    </button>
+                </div>
+            </form>
+            
           </div>
       </div>
   </div>

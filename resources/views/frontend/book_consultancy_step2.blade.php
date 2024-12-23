@@ -24,38 +24,60 @@
             <!-- Right Side Form -->
             <div>
                 <h2 class="text-xl font-semibold mb-4 underline">Enter Details</h2>
-                <form action="{{ route('consultation.submit') }}" method="POST" class="space-y-4">
+                
+                <form method="POST" action="{{ route('consultation.personal-info') }}">
                     @csrf
+
+                    <input type="text" name="date" value="{{ request('date') }}">
+                    <input type="text" name="time" value="{{ request('time') }}">
                     <div>
                         <label for="first-name" class="block text-sm font-medium text-gray-700">First Name *</label>
                         <input type="text" id="first-name" name="first_name" required 
                                class="mt-1 w-full border rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500">
+                               @error('first_name')
+                               <span class="text-red-500 text-sm">{{ $message }}</span>
+                           @enderror
                     </div>
                     <div>
                         <label for="last-name" class="block text-sm font-medium text-gray-700">Last Name *</label>
                         <input type="text" id="last-name" name="last_name" required 
                                class="mt-1 w-full border rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500">
-                    </div>
+                               @error('last_name')
+                               <span class="text-red-500 text-sm">{{ $message }}</span>
+                           @enderror
+                   
+                   </div>
                     <div>
                         <label for="phone" class="block text-sm font-medium text-gray-700">Phone *</label>
                         <input type="tel" id="phone" name="phone" required 
                                class="mt-1 w-full border rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500">
+                               @error('phone')
+                               <span class="text-red-500 text-sm">{{ $message }}</span>
+                           @enderror
+                    
                     </div>
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-700">Email *</label>
                         <input type="email" id="email" name="email" required 
                                class="mt-1 w-full border rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500">
+                               @error('email')
+                               <span class="text-red-500 text-sm">{{ $message }}</span>
+                           @enderror
                     </div>
                     <div>
                         <label for="additional-info" class="block text-sm font-medium text-gray-700">Additional Information</label>
                         <textarea id="additional-info" name="additional_info" rows="4" 
                                   class="mt-1 w-full border rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500" 
                                   placeholder="Is there anything you would like us to know before your appointment?"></textarea>
+                                  @error('additional_info')
+                                  <span class="text-red-500 text-sm">{{ $message }}</span>
+                              @enderror
                     </div>
                     <div class="flex items-start justify-center">
                         <input type="checkbox" id="confirm" name="confirm" required 
                                class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="confirm" class="ml-2 text-sm text-gray-700">
+                              
+                               <label for="confirm" class="ml-2 text-sm text-gray-700">
                             I confirm that I want to receive content from this company using any contact information I provide.
                         </label>
                     </div>
@@ -65,6 +87,15 @@
                             Schedule
                         </button>
                     </div>
+                    @if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
                 </form>
             </div>
         </div>
