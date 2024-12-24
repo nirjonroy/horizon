@@ -13,6 +13,7 @@ use App\Http\Controllers\backend\sliderController;
 use App\Http\Controllers\backend\contactFormController;
 use App\Http\Controllers\backend\blogController;
 use App\Http\Controllers\backend\userController;
+use App\Http\Controllers\backend\ConsultationController;
 use App\Http\Controllers\frontend\homeController;
 use Illuminate\Support\Facades\Route;
 
@@ -119,6 +120,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/student-informations-view/{id}', [studentInformationController::class, 'show'])->name('studentInformation.show');
     Route::get('/contact-informations', [contactFormController::class, 'index'])->name('contact.index');
     Route::get('/contact-view/{id}', [contactFormController::class, 'show'])->name('contact.view');
+
+    Route::get('all-consultation', [ConsultationController::class, 'index'])->name('consultation.index');
+    Route::get('/view-consultation/{id}', [ConsultationController::class, 'show'])->name('consultation.view');
+
 
     Route::get('/slider-index', [sliderController::class, 'index'])->name('slider.index');
     Route::get('/slider-create', [sliderController::class, 'create'])->name('slider.create');

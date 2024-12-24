@@ -267,6 +267,16 @@
           </li>
 
           <li class="nav-item">
+            <a href="{{route('consultation.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Consultation
+                {{-- <span class="right badge badge-danger">New</span> --}}
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
             <a href="{{route('contact.index')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
