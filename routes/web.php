@@ -14,6 +14,7 @@ use App\Http\Controllers\backend\contactFormController;
 use App\Http\Controllers\backend\blogController;
 use App\Http\Controllers\backend\userController;
 use App\Http\Controllers\backend\ConsultationController;
+use App\Http\Controllers\backend\ScriptController;
 use App\Http\Controllers\frontend\homeController;
 use Illuminate\Support\Facades\Route;
 
@@ -124,6 +125,8 @@ Route::middleware('auth')->group(function () {
     Route::get('all-consultation', [ConsultationController::class, 'index'])->name('consultation.index');
     Route::get('/view-consultation/{id}', [ConsultationController::class, 'show'])->name('consultation.view');
 
+    Route::get('Scripts-form', [ScriptController::class, 'index'])->name('script.index');
+    Route::post('Scripts-update', [ScriptController::class, 'update'])->name('script.update');
 
     Route::get('/slider-index', [sliderController::class, 'index'])->name('slider.index');
     Route::get('/slider-create', [sliderController::class, 'create'])->name('slider.create');

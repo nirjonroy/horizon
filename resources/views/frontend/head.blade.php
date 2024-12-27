@@ -59,4 +59,7 @@
         gap: 10px;
       }
     </style>
+
+{!!\App\Models\Script::value('google')!!}
+{!!\App\Models\Script::value('facebook')!!}
   </head>

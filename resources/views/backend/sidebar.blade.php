@@ -287,6 +287,16 @@
           </li>
           
           <li class="nav-item">
+            <a href="{{route('script.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Scripts 
+                {{-- <span class="right badge badge-danger">New</span> --}}
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
             <a href="{{route('backend.user.registration')}}" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>
