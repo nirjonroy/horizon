@@ -297,6 +297,16 @@
           </li>
 
           <li class="nav-item">
+            <a href="{{route('seo-setup')}}" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                SEO 
+                {{-- <span class="right badge badge-danger">New</span> --}}
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
             <a href="{{route('backend.user.registration')}}" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>

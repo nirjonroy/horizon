@@ -12,6 +12,7 @@
             <!-- form start -->
             <form role="form" action="{{route('whereToStudy.update', $studies->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
+                
               <div class="card-body">
                 <div class="form-group">
                   <label for="exampleInputName"> Name Of University  </label>
@@ -266,6 +267,36 @@
                     </div>
 
                   </div>
+
+                  <div class="form-group">
+                    <label for="exampleInputName"> Meta title </label>
+                    <div class="mb-3">
+                      <textarea class="form-control" placeholder="Place some text here"
+                                style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" name="meta_title">{{$studies->meta_title}}</textarea>
+                    </div>
+
+                  </div>
+
+                  <div class="form-group">
+                    <label for="exampleInputName"> Meta description </label>
+                    <div class="mb-3">
+                      <textarea class="form-control" placeholder="Place some text here"
+                                style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" name="meta_description">{{$studies->meta_description}}</textarea>
+                    </div>
+
+                  </div>
+
+                  <div class="form-group">
+                    <label for="exampleInputName">Keywords</label>
+                    @php
+                        // Decode the keywords JSON string into an array
+                        $keywordsArray = json_decode($studies->keywords, true);
+                    @endphp
+                    <input type="text" class="form-control" name="keywords" 
+                           value="{{ is_array($keywordsArray) ? implode(', ', $keywordsArray) : '' }}" 
+                           placeholder="Enter keywords separated by commas" required>
+                </div>
+                
                 
                 
                  <div class="form-group">

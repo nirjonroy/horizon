@@ -115,6 +115,11 @@ class whereToStudyController extends Controller
         $whereToStudy->faq_question_5 = $request->faq_question_5;
         $whereToStudy->faq_answer_5 = $request->faq_answer_5;
         $whereToStudy->is_done = $request->is_done;
+        $whereToStudy->meta_title = $request->meta_title;
+        $whereToStudy->meta_description = $request->meta_description;
+
+        $keywords = $request->keywords;
+        $whereToStudy->keywords = $keywords ? json_encode(array_map('trim', explode(',', $keywords))) : null;
 
         $whereToStudy->save();
         return redirect()->back()->with('success', 'Cretated Successfully');
@@ -172,6 +177,12 @@ class whereToStudyController extends Controller
         $whereToStudy->faq_question_5 = $request->faq_question_5;
         $whereToStudy->faq_answer_5 = $request->faq_answer_5;
         $whereToStudy->is_done = $request->is_done;
+
+        $whereToStudy->meta_title = $request->meta_title;
+        $whereToStudy->meta_description = $request->meta_description;
+
+        $keywords = $request->keywords;
+        $whereToStudy->keywords = $keywords ? json_encode(array_map('trim', explode(',', $keywords))) : null;
 
         $whereToStudy->save();
 

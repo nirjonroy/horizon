@@ -1,7 +1,12 @@
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Horizons Unlimited</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Imad_hajj">
+  <meta name="google-site-verification" content="wAw4hUVvSKTBeG8hb1WH9Gl37n2wS_BtK5vxVHzhVMg" />
+  @yield('seos')
+  <title>@yield('title', 'Horizons Unlimited')</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {

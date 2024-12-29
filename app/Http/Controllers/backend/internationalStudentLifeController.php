@@ -59,6 +59,12 @@ class internationalStudentLifeController extends Controller
         $lifes->faq_question_5 = $request->faq_question_5;
         $lifes->faq_answer_5 = $request->faq_answer_5;
 
+        $lifes->meta_title = $request->meta_title;
+        $lifes->meta_description = $request->meta_description;
+
+        $keywords = $request->keywords;
+        $lifes->keywords = $keywords ? json_encode(array_map('trim', explode(',', $keywords))) : null;
+
         $lifes->save();
         return redirect()->back()->with('success', 'Cretated Successfully');
     }
@@ -97,6 +103,13 @@ class internationalStudentLifeController extends Controller
         $life->faq_answer_4 = $request->faq_answer_4;
         $life->faq_question_5 = $request->faq_question_5;
         $life->faq_answer_5 = $request->faq_answer_5;
+
+        $life->meta_title = $request->meta_title;
+        $life->meta_description = $request->meta_description;
+
+        $keywords = $request->keywords;
+        $life->keywords = $keywords ? json_encode(array_map('trim', explode(',', $keywords))) : null;
+
 
         $life->save();
 

@@ -1,5 +1,36 @@
 @extends('frontend.app')
 
+@section('title', $lifes->name)
+@section('seos')
+    @php
+        $SeoSettings = DB::table('seo_settings')->where('id', 1)->first();
+        // Decode the keywords JSON string into an array
+        $keywordsArray = json_decode($lifes->keywords, true);
+    @endphp
+
+    <meta charset="UTF-8">
+
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+    <meta name="title" content="{{$lifes->meta_title}}">
+
+    <meta name="description" content="{{$lifes->meta_description}}">
+    
+    <!-- Populate the keywords meta tag -->
+    <meta name="keywords" content="{{ isset($keywordsArray) ? implode(', ', $keywordsArray) : '' }}" /> 
+
+    <meta property="og:title" content="{{$lifes->meta_title}}">
+    <meta property="og:description" content="{{$lifes->meta_description}}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:site_name" content="{{$lifes->meta_title}}">
+    <meta property="og:image" content="{{asset($lifes->hero_banner)}}">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="website">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="628">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+@endsection
+
 @section('content')
   <!--Banner Section-->
   <div class="h-auto rounded flex flex-col p-8 sm:p-16 md:p-24 justify-center bg-white">

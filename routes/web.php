@@ -15,6 +15,7 @@ use App\Http\Controllers\backend\blogController;
 use App\Http\Controllers\backend\userController;
 use App\Http\Controllers\backend\ConsultationController;
 use App\Http\Controllers\backend\ScriptController;
+use App\Http\Controllers\backend\SeoController;
 use App\Http\Controllers\frontend\homeController;
 use Illuminate\Support\Facades\Route;
 
@@ -127,6 +128,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('Scripts-form', [ScriptController::class, 'index'])->name('script.index');
     Route::post('Scripts-update', [ScriptController::class, 'update'])->name('script.update');
+
+    Route::get('seo-setup',[SeoController::Class, 'seoSetup'])->name('seo-setup');
+    
+    Route::put('update-seo-setup/{id}',[SeoController::Class, 'updateSeoSetup'])->name('update-seo-setup');
+    Route::get('get-seo-setup/{id}',[SeoController::Class, 'getSeoSetup'])->name('get-seo-setup');
 
     Route::get('/slider-index', [sliderController::class, 'index'])->name('slider.index');
     Route::get('/slider-create', [sliderController::class, 'create'])->name('slider.create');
