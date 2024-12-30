@@ -54,7 +54,7 @@
           </li>
           <li class="nav-item">
             <a href="{{route('siteinfo.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fas fa-industry"></i>
               <p>
                 Site Information
                 {{-- <span class="right badge badge-danger">New</span> --}}
@@ -63,7 +63,8 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-school"></i>
+              {{-- <i class="fa-solid fa-person-chalkboard"></i> --}}
               <p>
                 Where To Study
                 <i class="fas fa-angle-left right"></i>
@@ -89,7 +90,7 @@
 
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-life-ring"></i>
               <p>
                 Student life
                 <i class="fas fa-angle-left right"></i>
@@ -115,7 +116,7 @@
 
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-wallet"></i>
               <p>
                 Fees and Cost
                 <i class="fas fa-angle-left right"></i>
@@ -222,7 +223,8 @@
 
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-sliders-h"></i>
+              
               <p>
                 Slider
                 <i class="fas fa-angle-left right"></i>
@@ -258,7 +260,7 @@
 
           <li class="nav-item">
             <a href="{{route('studentInformation.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fas fa-id-card"></i>
               <p>
                 Student Informations
                 {{-- <span class="right badge badge-danger">New</span> --}}
@@ -268,7 +270,7 @@
 
           <li class="nav-item">
             <a href="{{route('consultation.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fas fa-phone"></i>
               <p>
                 Consultation
                 {{-- <span class="right badge badge-danger">New</span> --}}
@@ -288,7 +290,7 @@
           
           <li class="nav-item">
             <a href="{{route('script.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
+              <i class="nav-icon fas fa-flask"></i>
               <p>
                 Scripts 
                 {{-- <span class="right badge badge-danger">New</span> --}}
@@ -298,7 +300,7 @@
 
           <li class="nav-item">
             <a href="{{route('seo-setup')}}" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
+              <i class="nav-icon fas fa-bullhorn"></i>
               <p>
                 SEO 
                 {{-- <span class="right badge badge-danger">New</span> --}}
