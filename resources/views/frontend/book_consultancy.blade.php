@@ -33,6 +33,9 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="628">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0/js/select2.min.js"></script>
+
 @endsection
 
 @section('content')
@@ -123,20 +126,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-4">
-                    <label for="timezone" class="block text-sm font-medium text-gray-700">Select Time Zone</label>
-                    <select
-                        id="timezone"
-                        name="timezone"
-                        class="mt-2 w-full border rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500"
-                        required
-                    >
-                        <option value="utc-5">UTC-5: Eastern Time (US & Canada)</option>
-                        <option value="utc-6">UTC-6: Central Time (US & Canada)</option>
-                        <option value="utc-7">UTC-7: Mountain Time (US & Canada)</option>
-                        <option value="utc-8">UTC-8: Pacific Time (US & Canada)</option>
-                    </select>
+                
+                <div class="form-group mb-4">
+                    <label for="time_zone" class="block text-gray-700 font-bold mb-2">Select Time Zone:</label>
+                    <div class="relative">
+                        <select name="time_zone" id="time_zone" class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg focus:ring focus:ring-blue-300 focus:outline-none">
+                                @foreach ($timeZones as $zone)
+                                    <option value="{{ $zone->zone_name }}">
+                                        {{ $zone->zone_name }} ({{ $zone->gmt_offset >= 0 ? '+' : '-' }}{{ gmdate('H:i', abs($zone->gmt_offset)) }})
+                                    </option>
+                                @endforeach                           
+                        </select>
+                        <p class="text-red-500 mt-1 hidden" id="error_message">Error loading time zones.</p>
+                    </div>
                 </div>
+                
+                
                 <div class="flex justify-end">
                     <button
                         type="submit"
@@ -151,6 +156,15 @@
       </div>
   </div>
 </section>
+<script>
+    $(document).ready(function() {
+        $('#time_zone').select2({
+            placeholder: "Search for a time zone...",
+            allowClear: true,
+        });
+    });
+</script>
+
 <script>
   function selectTime(time) {
     document.getElementById('selectedTime').value = time;

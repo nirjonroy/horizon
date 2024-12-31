@@ -47,10 +47,10 @@
                 </div>
                 <div class="flex items-center justify-center gap-2 mb-2">
                     <i class="fa-solid fa-calendar-days"></i>
-                    <p class="text-lg font-medium">Wed, Dec 18, 2024</p>
+                    <p class="text-lg font-medium">{{ request('date') }}</p>
                 </div>
                 <div class="flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-globe"></i>
+                    <i class="fa-solid fa-globe">{{ request('time') }}</i>
                     <p class="text-lg font-medium">UTC-5 Eastern Time</p>
                 </div>
             </div>
@@ -62,8 +62,9 @@
                 <form method="POST" action="{{ route('consultation.personal-info') }}">
                     @csrf
 
-                    <input type="text" name="date" value="{{ request('date') }}">
-                    <input type="text" name="time" value="{{ request('time') }}">
+                    <input type="hidden" name="date" value="{{ request('date') }}">
+                    <input type="hidden" name="time" value="{{ request('time') }}">
+                    <input type="text" name="time_zone" value="{{ request('time_zone') }}">
                     <div>
                         <label for="first-name" class="block text-sm font-medium text-gray-700">First Name *</label>
                         <input type="text" id="first-name" name="first_name" required 

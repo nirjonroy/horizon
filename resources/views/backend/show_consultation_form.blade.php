@@ -42,6 +42,11 @@
                     <label for="exampleInputName"> Time  </label>
                     <input type="text" class="form-control" id="exampleInputEmail1" placeholder="name of university" name="name" value="{{$book->time}}" disabled>
                   </div>
+                  
+                  <div class="form-group">
+                    <label for="exampleInputName"> Time Zone </label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="name of university" name="name" value="{{$book->time_zone}}" disabled>
+                  </div>
 
                   <div class="form-group">
                     <label for="exampleInputName"> Message  </label>

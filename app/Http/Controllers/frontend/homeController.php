@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\frontend;
+use Illuminate\Support\Facades\Http;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -15,7 +16,10 @@ use App\Models\onlineFee;
 use App\Models\Booking;
 use App\Models\internationalStudentLife;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\TimeZone;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class homeController extends Controller
 {
@@ -187,30 +191,66 @@ class homeController extends Controller
         return view('frontend.blog_details', compact('blog'));
     }
 
-    public function consultation_book(){
+// public function getTimeZoneData()
+// {
+//     $apiKey = 'A8PRL7GQ6QVQ';
+//     $response = Http::get("http://api.timezonedb.com/v2.1/list-time-zone", [
+//         'key' => $apiKey,
+//         'format' => 'json',
+//     ]);
+
+//     if ($response->successful()) {
+//         $timeZones = $response->json()['zones'];
+//         // Process and use $timeZones as needed
+//     } else {
+//         // Handle error
+//     }
+// }
+
+
+
+public function consultation_book()
+{
+
+    
+    
+
         return view('frontend.book_consultancy');
-    }
+   
+}
+
+
+
 
     public function showStep1()
     {
+       // Cache for 1 day (adjust duration as needed)
+    $timeZones = Cache::remember('time_zones', 86400, function () {
+        return DB::table('time_zone')
+            ->select('zone_name', 'gmt_offset')
+            ->orderBy('zone_name', 'asc')
+            ->get();
+    });
+        
         $timeSlots = $this->generateTimeSlots();
-        return view('frontend.book_consultancy', compact('timeSlots'));
+        return view('frontend.book_consultancy', compact('timeSlots', 'timeZones'));
     }
     
-    private function generateTimeSlots()
-    {
-        $startTime = Carbon::now(); // Current time
-        $endTime = Carbon::now()->addHours(8); // Limit to the next 8 hours
-        $interval = 30; // Interval in minutes
-        $timeSlots = [];
-    
-        while ($startTime->lte($endTime)) {
-            $timeSlots[] = $startTime->format('h:i A');
-            $startTime->addMinutes($interval);
-        }
-    
-        return $timeSlots;
+    private function generateTimeSlots($timezone = null)
+{
+    $startTime = Carbon::now($timezone); // Use the selected time zone
+    $endTime = Carbon::now($timezone)->addHours(8);
+    $interval = 30; 
+    $timeSlots = [];
+
+    while ($startTime->lte($endTime)) {
+        $timeSlots[] = $startTime->format('h:i A');
+        $startTime->addMinutes($interval);
     }
+
+    return $timeSlots;
+}
+
     
     public function showStep2(Request $request)
     {
@@ -224,6 +264,7 @@ class homeController extends Controller
         return view('frontend.book_consultancy_step2', [
             'date' => $request->query('date'),
             'time' => $request->query('time'),
+            'time_zone' => $request->query('time_zone'),
         ]);
     }
     
@@ -236,6 +277,7 @@ class homeController extends Controller
         $validatedData = $request->validate([
             'date' => 'required|date|after_or_equal:today',
             'time' => 'required',
+            'time_zone' => 'required',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'phone' => 'required|string|max:15',
@@ -259,6 +301,9 @@ class homeController extends Controller
     
     public function confirmation()
 {
+
+    
+
     // Retrieve the latest booking from the database
     $booking = Booking::latest()->first();
 
@@ -266,6 +311,8 @@ class homeController extends Controller
         // Redirect to Step 1 if no booking data is found
         return redirect()->route('consultation.step1')->with('error', 'No booking found.');
     }
+
+    
 
     // Display confirmation page with booking details
     return view('frontend.consultation_confirmation', compact('booking'));
