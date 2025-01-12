@@ -51,6 +51,7 @@ Route::get('support-for-study-abroad', [homeController::class, 'support_study_ab
 Route::get('support-career-preparation', [homeController::class, 'career_preparation'])->name('support.career.preparation');
 Route::get('contact-us', [homeController::class, 'contact_us'])->name('contact.us');
 Route::get('clear-cache', [homeController::class, 'clear_cache'])->name('clear.cache');
+Route::get('all-blogs', [homeController::class, 'all_blogs'])->name('all.blogs');
 Route::get('blog-details/{id}', [homeController::class, 'blog_details'])->name('blog.details');
 Route::get('consultation-book', [homeController::class, 'consultation_book'])->name('consultation.book');
 
@@ -127,7 +128,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/view-consultation/{id}', [ConsultationController::class, 'show'])->name('consultation.view');
 
     Route::get('Scripts-form', [ScriptController::class, 'index'])->name('script.index');
-    Route::post('Scripts-update', [ScriptController::class, 'update'])->name('script.update');
+    Route::put('Scripts-update', [ScriptController::class, 'update'])->name('script.update');
 
     Route::get('seo-setup',[SeoController::Class, 'seoSetup'])->name('seo-setup');
     

@@ -1,15 +1,15 @@
 <!--Navbar-->
 <header id="navbar">
-    <div class="bg-primary">
+    <div class="bg-primary py-2">
       <div class="flex justify-between max-w-7xl mx-4 md:mx-8 xl:mx-auto">
         <a href="{{route('home.index')}}">
             @php
                 $siteInfo = DB::table('site_information')->first();
             @endphp
-          <img class="w-36" src="{{asset($siteInfo->logo)}}" alt="{{$siteInfo->name}}" />
+          <img class="w-28 lg:w-32" src="{{asset($siteInfo->logo)}}" alt="{{$siteInfo->name}}" />
         </a>
 
-        <div class="flex justify-center items-center gap-4 lg:gap-5">
+        <div class="flex justify-center items-center gap-1 lg:gap-5">
           <!--<div class="dropdown">-->
           <!--  <span class="text-lg font-semibold"-->
           <!--    ><i class="text-2xl text-white fa-solid fa-user"></i-->
@@ -29,21 +29,21 @@
           <!--</div>-->
           <a href="{{route('consultation.step1')}}">
             <button
-              class="hidden lg:block text-base text-white border border-white w-36 h-12 rounded-md font-bold"
+              class=" text-[10px] lg:text-base text-white border border-white px-2 py-1 rounded-md font-bold"
             >
               Book Consultation
             </button>
           </a>
           <a href="{{route('contact.us')}}">
             <button
-              class="hidden lg:block text-base text-white border border-white w-36 h-12 rounded-md font-bold"
+              class="hidden lg:block text-base text-white border border-white px-2 py-1 rounded-md font-bold"
             >
               Contact Us
             </button>
           </a>
           <a href="{{route('apply.now')}}">
             <button
-              class="lg:text-base text-sm bg-[#FF0000] text-white w-24 h-10 lg:w-36 lg:h-12 rounded-md font-bold"
+              class="lg:text-base text-[10px] bg-[#FF0000] text-white px-2 py-1 rounded-md font-bold"
             >
               Apply Now
             </button>
@@ -140,6 +140,10 @@
         <a href="{{route('who_we_are')}}">
           <li class="text-lg font-semibold">Who We Are</li>
         </a>
+        <a
+              class="text-lg font-semibold"
+              href="{{route('all.blogs')}}"
+              >Blogs</a>
         <div class="dropdown">
           <span class="text-lg font-semibold"
             >Support <i class="ml-2 fa-solid fa-caret-down"></i
@@ -155,6 +159,7 @@
               href="{{route('support.career.preparation')}}"
               >Career Preparation</a
             >
+            
           </div>
         </div>
         {{-- <a href="#">
@@ -238,6 +243,12 @@
         <a href="{{route('who_we_are')}}">
           <li class="text-lg font-semibold text-white">Who We Are</li>
         </a>
+        
+        <a
+              class="text-lg font-semibold text-white"
+              href="{{route('all.blogs')}}"
+              >Blogs</a>
+              
         <div class="dropdown">
           <span class="text-lg text-white font-semibold"
             >Support <i class="ml-2 fa-solid fa-caret-down"></i
@@ -253,6 +264,8 @@
               href="{{route('support.career.preparation')}}"
               >Career Preparation</a
             >
+            
+            
           </div>
         </div>
         {{-- <a href="#">

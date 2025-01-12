@@ -20,6 +20,9 @@ use App\Models\TimeZone;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use App\Mail\ContactFormMail;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\BookingConfirmationMail;
 
 class homeController extends Controller
 {
@@ -96,7 +99,12 @@ class homeController extends Controller
 
         // Save the model instance to the database
         $contactForm->save();
+         // Send the email to the user (who submitted the form)
+         Mail::to($validatedData['email'])->send(new ContactFormMail($validatedData));
 
+         // Send the email to your email (roynirjon18@gmail.com)
+         Mail::to('roynirjon18@gmail.com')->send(new ContactFormMail($validatedData));
+ 
         // Redirect back with a success message
 
         return redirect()->back()->with('success', 'Message Sent Successfully');
@@ -181,7 +189,15 @@ class homeController extends Controller
     \Artisan::call('route:clear');
     \Artisan::call('view:clear');
     \Artisan::call('config:clear');
+    \Artisan::call('config:cache');
     dd("Application all cached has been cleared!");
+    }
+    
+    public function all_blogs()
+    {
+        $blogs = Blog::latest()->paginate(30);
+        return view('frontend.all_blogs', compact('blogs'));
+
     }
 
     public function blog_details($id){
@@ -292,7 +308,11 @@ public function consultation_book()
     
         // Save the booking instance to the database
         $booking->save();
-    
+        Mail::to($validatedData['email'])->send(new BookingConfirmationMail($validatedData));
+
+        // Send email to your email (roynirjon18@gmail.com)
+        Mail::to('roynirjon18@gmail.com')->send(new BookingConfirmationMail($validatedData));
+
         // Redirect back with a success message
         return redirect()->route('consultation.confirmation')->with('success', 'Booking confirmed successfully!');
     }

@@ -32,22 +32,38 @@
 
 @section('content')
  <!--Hero Section-->
- <div class="w-full lg:pt-0 pt-16">
-    <div class="swiper-container">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <img class="w-full" src="{{asset($slider->image)}}" alt="Image 1" />
+<div class="w-full  pt-16 relative">
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <img class="w-full" src="{{asset($slider->image)}}" alt="Image 1" />
+        <!-- Buttons -->
+        <div class="absolute top-[62%] sm:top-[57%] lg:top-[55%]  left-6 sm:left-16 lg:left-32 ">
+                   <a href="{{route('apply.now')}}">
+            <button
+              class="text-[8px] sm:text-base lg:text-lg bg-[#FF0000] hover:bg-black text-white px-2 py-1 sm:px-4 sm:py-2 rounded-md font-bold"
+            >
+              Apply Now
+            </button>
+          </a>
+          <a href="{{route('consultation.step1')}}">
+            <button
+              class="text-[8px] sm:text-base lg:text-lg bg-blue-900 hover:bg-gray-200 hover:text-black text-white border border-white px-2 py-1 sm:px-4 sm:py-2 rounded-md font-bold"
+            >
+              Book Consultation
+            </button>
+          </a>
         </div>
       </div>
-      <!-- Add Pagination -->
-      <div class="swiper-pagination"></div>
     </div>
   </div>
+</div>
+
   <!--End Hero Section-->
   <!--Where to Study-->
   <section class="max-w-7xl mx-auto">
     <h1
-      class="mt-16 text-center mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl"
+      class="mt-4 lg:mt-16 text-center mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl"
     >
       Where to study
     </h1>
@@ -62,6 +78,7 @@
     >
       @foreach ($whereToStudies as $study)
 
+          <a href="{{route('where.to.study', $study->id)}}">
       <div class="max-w-sm rounded overflow-hidden shadow-lg">
         <img
           class="w-full h-60"
@@ -74,15 +91,14 @@
            
            {!! Str::limit(strip_tags($study->short_description), 400) !!}
           </p>
-          <a href="{{route('where.to.study', $study->id)}}">
             <button
               class="mt-5 bg-primary text-sm text-white border border-white w-36 h-12 rounded-md font-bold"
             >
               View More
             </button>
-          </a>
         </div>
       </div>
+          </a>
 
       @endforeach
 

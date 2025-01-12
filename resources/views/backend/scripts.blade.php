@@ -19,7 +19,7 @@
         </div>
     
         <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
+            <label for="exampleInputEmail1">Facebook Pixel</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" name="facebook" rows="3">{{ $scripts->facebook }}</textarea>
         </div>
     

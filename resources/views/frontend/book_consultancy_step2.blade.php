@@ -39,7 +39,7 @@
     <div class="bg-white shadow-lg rounded-lg w-full max-w-4xl p-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <!-- Left Side Card -->
-            <div class="bg-gradient-to-r from-blue-900 to-red-600 text-white p-6 mt-12 lg:mt-0 rounded-lg flex flex-col items-start">
+            <div class="bg-blue-900 text-white p-6 mt-12 lg:mt-0 rounded-lg flex flex-col items-start">
                 <h2 class="text-2xl font-semibold mb-4">Appointment for Consultation</h2>
                 <div class="flex items-center justify-center gap-2 mb-2">
                     <i class="fa-solid fa-clock"></i>
@@ -50,7 +50,7 @@
                     <p class="text-lg font-medium">{{ request('date') }}</p>
                 </div>
                 <div class="flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-globe">{{ request('time') }}</i>
+                    <i class="fa-solid fa-globe flex gap-2">{{ request('time') }}</i>
                     <p class="text-lg font-medium">UTC-5 Eastern Time</p>
                 </div>
             </div>
@@ -64,7 +64,7 @@
 
                     <input type="hidden" name="date" value="{{ request('date') }}">
                     <input type="hidden" name="time" value="{{ request('time') }}">
-                    <input type="text" name="time_zone" value="{{ request('time_zone') }}">
+                    <input type="hidden" name="time_zone" value="{{ request('time_zone') }}">
                     <div>
                         <label for="first-name" class="block text-sm font-medium text-gray-700">First Name *</label>
                         <input type="text" id="first-name" name="first_name" required 

@@ -292,7 +292,7 @@
         </div>
 
         <p class="text-xs text-white">
-          &copy; 2024. Blacktech Consultancy. All rights reserved.
+          &copy; 2025. Horizons Unlimited. All rights reserved.
         </p>
       </div>
     </footer>

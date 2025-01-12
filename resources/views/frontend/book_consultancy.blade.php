@@ -33,54 +33,39 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="628">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0/js/select2.min.js"></script>
+
 
 @endsection
 
 @section('content')
-<style>
-    header {
-      position: fixed;
-      z-index: 1000;
-      width: 100%;
-      background-color: white;
-      transition: background-color 0.3s ease;
-    }
-
-    header.scroll {
-      background-color: rgb(255, 243, 243);
-    }
-  </style>
-  <style>
-    .dropdown {
-      position: relative;
-      display: inline-block;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #f6f6ff;
-      min-width: 250px;
-      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-      padding: 12px 16px;
-      z-index: 1000;
-      border-radius: 5px;
-    }
-
-    .dropdown:hover .dropdown-content {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-  </style>
+<script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#001D42",
+              red: "#ff0000",
+            },
+          },
+        },
+      };
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    
+    
 
 <section class="bg-gray-100 flex items-center justify-center min-h-screen">
   <div class="bg-white shadow-lg rounded-lg w-full max-w-4xl p-6">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <!-- Left Side Card -->
-          <div class="bg-gradient-to-r from-blue-900 to-red-600 text-white p-6 mt-12 lg:mt-0 rounded-lg flex flex-col items-start">
+          <div class="bg-blue-900 text-white p-6 mt-16 lg:mt-0 rounded-lg flex flex-col items-start">
               <h2 class="text-2xl font-semibold mb-4">Appointment for Consultation</h2>
               <div class="flex items-center justify-center gap-2 mb-2">
                   <i class="fa-solid fa-clock"></i>
@@ -88,7 +73,7 @@
               </div>
               <div class="flex items-center justify-center gap-2">
                   <i class="fa-solid fa-calendar-days"></i>
-                  <p class="text-lg font-medium">{{ \Carbon\Carbon::now()->format('D, M d, Y') }}</p>
+                  <p class="text-lg font-medium ">{{ \Carbon\Carbon::now()->format('D, M d, Y') }}</p>
               </div>
           </div>
 
@@ -109,7 +94,7 @@
                             required
                         />
                     </div>
-                    <div>
+                    <div class = "h-80 overflow-y-auto">
                         <p class="text-sm font-medium text-gray-700 mb-2">Available Times</p>
                         <div class="space-y-2">
                             @foreach($timeSlots as $time)
@@ -131,12 +116,13 @@
                     <label for="time_zone" class="block text-gray-700 font-bold mb-2">Select Time Zone:</label>
                     <div class="relative">
                         <select name="time_zone" id="time_zone" class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg focus:ring focus:ring-blue-300 focus:outline-none">
-                                @foreach ($timeZones as $zone)
+                                @foreach ($timeZones->take(5) as $zone)
                                     <option value="{{ $zone->zone_name }}">
                                         {{ $zone->zone_name }} ({{ $zone->gmt_offset >= 0 ? '+' : '-' }}{{ gmdate('H:i', abs($zone->gmt_offset)) }})
                                     </option>
                                 @endforeach                           
                         </select>
+                       
                         <p class="text-red-500 mt-1 hidden" id="error_message">Error loading time zones.</p>
                     </div>
                 </div>
@@ -156,14 +142,7 @@
       </div>
   </div>
 </section>
-<script>
-    $(document).ready(function() {
-        $('#time_zone').select2({
-            placeholder: "Search for a time zone...",
-            allowClear: true,
-        });
-    });
-</script>
+
 
 <script>
   function selectTime(time) {
