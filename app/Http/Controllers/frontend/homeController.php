@@ -18,17 +18,18 @@ use App\Models\internationalStudentLife;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\TimeZone;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 use App\Mail\ContactFormMail;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BookingConfirmationMail;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class homeController extends Controller
 {
     public function index(){
         $slider = slider::where('status', 1)->latest()->first();
-        $whereToStudies = whereToStudy::where('status', 1)->latest()->get();
+        $whereToStudies = whereToStudy::where('status', 1)->orderBy('priority', 'ASC')->get();
         $blogs = Blog::where('homePage', 1)->latest()->limit(6)->get();
          $cover = Blog::where('homePage', 1)
                 ->where('cover', 1)
@@ -99,11 +100,13 @@ class homeController extends Controller
 
         // Save the model instance to the database
         $contactForm->save();
+        
+        
          // Send the email to the user (who submitted the form)
-         Mail::to($validatedData['email'])->send(new ContactFormMail($validatedData));
+            Mail::to($validatedData['email'])->send(new ContactFormMail($validatedData));
 
-         // Send the email to your email (roynirjon18@gmail.com)
-         Mail::to('roynirjon18@gmail.com')->send(new ContactFormMail($validatedData));
+        //   Send the email to your email (roynirjon18@gmail.com)
+          Mail::to('imad@thehorizonsunlimited.com')->send(new ContactFormMail($validatedData));
  
         // Redirect back with a success message
 
@@ -184,18 +187,6 @@ class homeController extends Controller
         return view('frontend.contact_us', compact('info'));
     }
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-    public function clear_cache()
-    {
-        \Artisan::call('cache:clear');
-        \Artisan::call('route:clear');
-        \Artisan::call('view:clear');
-        \Artisan::call('config:clear');
-        dd("Application all cached has been cleared!");
-=======
->>>>>>> 4ac1f98 (Email Setup for  booking and consultation page)
     public function clear_cache(){
          \Artisan::call('cache:clear');
     \Artisan::call('route:clear');
@@ -203,17 +194,6 @@ class homeController extends Controller
     \Artisan::call('config:clear');
     \Artisan::call('config:cache');
     dd("Application all cached has been cleared!");
-<<<<<<< HEAD
-=======
->>>>>>> 7f5f6bc (Email Setup for  booking and consultation page)
-    }
-    
-    public function all_blogs()
-    {
-        $blogs = Blog::latest()->paginate(30);
-        return view('frontend.all_blogs', compact('blogs'));
-
->>>>>>> 4ac1f98 (Email Setup for  booking and consultation page)
     }
     
     public function all_blogs()
@@ -309,45 +289,42 @@ public function consultation_book()
     
 
     
-    public function submitBooking(Request $request)
-    {
-        // dd($request->all());
-        // Validate all required fields
-        $validatedData = $request->validate([
-            'date' => 'required|date|after_or_equal:today',
-            'time' => 'required',
-            'time_zone' => 'required',
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'phone' => 'required|string|max:15',
-            'email' => 'required|email|max:255',
-            'additional_info' => 'nullable|string|max:1000',
-            
-        ]);
-        // dd($validatedData);
-        // Create a new instance of the Booking model and fill it with validated data
-        $booking = new Booking();
-        $booking->fill($validatedData);
-    
-        // Save the booking instance to the database
-        $booking->save();
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> 4ac1f98 (Email Setup for  booking and consultation page)
-        Mail::to($validatedData['email'])->send(new BookingConfirmationMail($validatedData));
 
-        // Send email to your email (roynirjon18@gmail.com)
-        Mail::to('roynirjon18@gmail.com')->send(new BookingConfirmationMail($validatedData));
-<<<<<<< HEAD
-=======
->>>>>>> 7f5f6bc (Email Setup for  booking and consultation page)
->>>>>>> 4ac1f98 (Email Setup for  booking and consultation page)
 
-        // Redirect back with a success message
-        return redirect()->route('consultation.confirmation')->with('success', 'Booking confirmed successfully!');
+
+public function submitBooking(Request $request)
+{
+    // Validate the request data
+    $validatedData = $request->validate([
+        'date' => 'required|date|after_or_equal:today',
+        'time' => 'required',
+        'time_zone' => 'required',
+        'first_name' => 'required|string|max:255',
+        'last_name' => 'required|string|max:255',
+        'phone' => 'required|string|max:15',
+        'email' => 'required|email|max:255',
+        'additional_info' => 'nullable|string|max:1000',
+    ]);
+
+    try {
+        // Create a new booking
+        $booking = Booking::create($validatedData);
+
+        // Send booking confirmation email to the user
+        Mail::to($validatedData['email'])->send(new BookingConfirmationMail($booking));
+
+        // Send booking details to admin email
+        Mail::to('imad@thehorizonsunlimited.com')->send(new BookingConfirmationMail($booking));
+
+    } catch (\Exception $e) {
+        // Log error if email fails
+        Log::error('Booking email failed: ' . $e->getMessage());
     }
+
+    // Redirect with success message
+    return redirect()->route('consultation.confirmation')->with('success', 'Booking confirmed successfully!');
+}
+
     
 
     
