@@ -184,6 +184,18 @@ class homeController extends Controller
         return view('frontend.contact_us', compact('info'));
     }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    public function clear_cache()
+    {
+        \Artisan::call('cache:clear');
+        \Artisan::call('route:clear');
+        \Artisan::call('view:clear');
+        \Artisan::call('config:clear');
+        dd("Application all cached has been cleared!");
+=======
+>>>>>>> 4ac1f98 (Email Setup for  booking and consultation page)
     public function clear_cache(){
          \Artisan::call('cache:clear');
     \Artisan::call('route:clear');
@@ -191,6 +203,17 @@ class homeController extends Controller
     \Artisan::call('config:clear');
     \Artisan::call('config:cache');
     dd("Application all cached has been cleared!");
+<<<<<<< HEAD
+=======
+>>>>>>> 7f5f6bc (Email Setup for  booking and consultation page)
+    }
+    
+    public function all_blogs()
+    {
+        $blogs = Blog::latest()->paginate(30);
+        return view('frontend.all_blogs', compact('blogs'));
+
+>>>>>>> 4ac1f98 (Email Setup for  booking and consultation page)
     }
     
     public function all_blogs()
@@ -308,10 +331,19 @@ public function consultation_book()
     
         // Save the booking instance to the database
         $booking->save();
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 4ac1f98 (Email Setup for  booking and consultation page)
         Mail::to($validatedData['email'])->send(new BookingConfirmationMail($validatedData));
 
         // Send email to your email (roynirjon18@gmail.com)
         Mail::to('roynirjon18@gmail.com')->send(new BookingConfirmationMail($validatedData));
+<<<<<<< HEAD
+=======
+>>>>>>> 7f5f6bc (Email Setup for  booking and consultation page)
+>>>>>>> 4ac1f98 (Email Setup for  booking and consultation page)
 
         // Redirect back with a success message
         return redirect()->route('consultation.confirmation')->with('success', 'Booking confirmed successfully!');
