@@ -13,7 +13,7 @@ use DB;
 class onlineFeeController extends Controller
 {
     public function index(){
-            $fees = onlineFee::where('status',1)->get();
+            $fees = onlineFee::where('status',1)->latest()->get();
 
         return view('backend.online_fee', compact('fees'));
     }
@@ -33,6 +33,7 @@ class onlineFeeController extends Controller
         $fees->total_fee = $request->total_fee;
         $fees->yearly = $request->yearly;
         $fees->duration = $request->duration;
+        $fees->link = $request->link;
 
         $fees->save();
         return redirect()->route('fees.online.index')->with('success', 'Cretated Successfully');
@@ -58,6 +59,7 @@ class onlineFeeController extends Controller
                 $fees->yearly = $request->yearly;
                 $fees->duration = $request->duration;
                 $fees->university_id = $request->university_id;
+                $fees->link = $request->link;
 
 
 

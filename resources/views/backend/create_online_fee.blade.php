@@ -70,8 +70,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleInputName"> Yearly Fee  </label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Add Yearly Fee" name="yearly">
+                    <label for="exampleInputName"> Discounted Fee  </label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Add Discounted Fee" name="yearly">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputName"> Link  </label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Add Link" name="link">
                 </div>
 
                 <div class="form-group">
