@@ -94,32 +94,18 @@
             <h2 class="text-3xl font-bold text-gray-800 mb-4">Our University Partners</h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">We collaborate with prestigious institutions to bring you world-class education</p>
         </div>
-        
+        @php 
+            $universites = DB::table('where_to_studies')->where('status', 1)->get()
+        @endphp
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div class="bg-white p-6 rounded-lg shadow-sm flex items-center justify-center border-l-4 border-blue-500 hover:border-red transition duration-300">
-                <span class="font-semibold text-gray-700">SSBM</span>
+            @foreach ($universites as $uni)
+                <div class="bg-white p-6 rounded-lg shadow-sm flex items-center justify-center border-l-4 border-blue-500 hover:border-red transition duration-300">
+                <span class="font-semibold text-gray-700">{{$uni->name}}</span>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow-sm flex items-center justify-center border-l-4 border-red hover:border-blue-500 transition duration-300">
-                <span class="font-semibold text-gray-700">Golden Gate University</span>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-sm flex items-center justify-center border-l-4 border-blue-500 hover:border-red transition duration-300">
-                <span class="font-semibold text-gray-700">University of Liverpool</span>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-sm flex items-center justify-center border-l-4 border-red hover:border-blue-500 transition duration-300">
-                <span class="font-semibold text-gray-700">Rashford Business School</span>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-sm flex items-center justify-center border-l-4 border-blue-500 hover:border-red transition duration-300">
-                <span class="font-semibold text-gray-700">ESGI</span>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-sm flex items-center justify-center border-l-4 border-red hover:border-blue-500 transition duration-300">
-                <span class="font-semibold text-gray-700">Edgwood College</span>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-sm flex items-center justify-center border-l-4 border-blue-500 hover:border-red transition duration-300">
-                <span class="font-semibold text-center text-gray-700">Liverpool John Moores University</span>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-sm flex items-center justify-center border-l-4 border-red hover:border-blue-500 transition duration-300">
-                <span class="font-semibold text-gray-700">Paris School of Business</span>
-            </div>
+            @endforeach
+            
+            
+            
         </div>
     </div>
 </section>
